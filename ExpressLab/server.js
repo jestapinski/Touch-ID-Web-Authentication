@@ -38,6 +38,10 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 io.on('connection', function(socket){
   console.log('a user connected');
+  socket.on('lost connection', function(x){console.log(x);});
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
 });
 // launch ======================================================================
 http.listen(port, function(){

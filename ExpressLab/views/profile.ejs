@@ -36,5 +36,13 @@
     </div>
 
 </div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  socket.emit('new connection', 'okay');
+  socket.on('new connection', function(x){
+    console.log('wowsies');
+    $('#tester').append(x);});
+</script>
 </body>
 </html>
