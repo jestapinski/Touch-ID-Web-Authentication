@@ -2,12 +2,7 @@
 <!doctype html>
 <html>
 <script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
-  socket.on('new connection', function(x){
-    //console.log('wowsies');
-    $('#tester').append(x);});
-</script>
+
 <head>
     <title>Node Authentication</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
@@ -25,12 +20,18 @@
         <p>Login or Register with:</p>
 
         <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+         <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
     </div>
 
-    <div id="tester">
-    </div>
-
+   
 </div>
 </body>
 </html>
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    var socket = io();
+</script>
+

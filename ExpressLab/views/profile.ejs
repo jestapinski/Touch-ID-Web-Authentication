@@ -5,6 +5,8 @@
     <title>Node Authentication</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+
     <style>
         body        { padding-top:80px; word-wrap:break-word; }
     </style>
@@ -15,6 +17,9 @@
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> Profile Page</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div id="tester">
     </div>
 
     <div class="row">
@@ -33,16 +38,30 @@
             </div>
         </div>
 
+        <div class="col-sm-6">
+            <h2 id="client_count"></h2>
+        </div>
+
+
     </div>
 
 </div>
+
 <script src="/socket.io/socket.io.js"></script>
+
 <script>
-  var socket = io();
-  socket.emit('new connection', 'okay');
-  socket.on('new connection', function(x){
-    console.log('wowsies');
-    $('#tester').append(x);});
+    // var socket = io.connect('http://localhost:8080');
+    var socket = io();
+    socket.on('connect', function(){
+        socket.on('users_count', function(data){
+
+    $('#client_count').text("The current amount of users logged in is: " + data);
+
+    console.log("Connection");
+  });
+});
+
 </script>
+
 </body>
 </html>
