@@ -57,6 +57,7 @@ io.on('connection', function(socket){
 
   socket.on('handshake', function(){
   	console.log('Getting Handshake from iOS');
+  	io.sockets.emit("backFromHandshake", "Some Data");
   });
 
   socket.on('disconnect', function(){
