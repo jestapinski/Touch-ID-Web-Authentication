@@ -6,6 +6,8 @@ var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
+var fs = require("fs");
+var path = require("path");
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -33,43 +35,29 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+//require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+//Load all the routes in the directory
+fs.readdirSync('./routes').forEach(function(file) {
+	if (path.extname(file) =='.js') {
+		require('./routes/' + file).init(app, passport);
+	}
+});
 
 // Handle static files
 app.use(express.static('public'));
 
-var clients = 0; 
+//Set the views directory
+app.set('views',__dirname + '/views');
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  ++clients; 
-  socket.broadcast.emit('users_count', clients);
-  io.sockets.emit('users_count', clients);
-  // Below line triggered
-  io.sockets.emit('handShake', 'This is working');
-  socket.broadcast.emit('handShake', 'Do broadcast instead');
-  console.log(clients);
 
-  socket.on('lost connection', function(){
-  	console.log('user lost connection');
-  });
+//if there is an error, will redirect to  apage showing it
+app.use(function(request, response) {
+	var message = 'Error, did not understand path' + request.path;
+	response.status(404).render('misc/error',{'message': message});
+})
 
-  socket.on('handShake', function(){
-  	console.log('Getting HandShake from iOS');
-  });
-
-  socket.on('handshake', function(){
-  	console.log('Getting Handshake from iOS');
-  	io.sockets.emit("backFromHandshake", "Some Data");
-  });
-
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-    --clients;
-    console.log(clients);
-  });
-
-});
+//gets the socket logic
+require('./socketio/serverSocket.js').init(io);
 
 
 // launch ======================================================================
