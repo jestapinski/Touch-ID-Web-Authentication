@@ -18,6 +18,13 @@ module.exports = function(app, passport) {
         res.render('login.ejs', { message: req.flash('loginMessage') }); 
     });
 
+
+    app.get('/touchlogin/:useremail', function(req, res) {
+
+        // render the page and pass in any flash data if it exists
+        res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail}); 
+    });
+
     // process the login form
     // app.post('/login', do all our passport stuff here);
 

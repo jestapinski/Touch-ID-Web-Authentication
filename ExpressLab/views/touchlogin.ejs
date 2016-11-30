@@ -20,25 +20,8 @@
     <div class="jumbotron text-center">
         <h1><span class="fa fa-lock"></span> Node Authentication</h1>
 
-        <p>Login or Register with:</p>
+        <p>Waiting to connect: <%= email%></p>
 
-        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
-
-        <!-- LOGIN FORM -->
-        <br>
-        <p>Touch ID Login</p>
-        
-
-
-        <form action="/touchlogin" method="post">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control" name="email" id="logintouchemail">
-            </div>
-            <a href="/touchlogin" class="btn btn-default btn-lg" id="logintouch">Touch Id Login</a>
-            
-        </form>
 
 
     </div>
