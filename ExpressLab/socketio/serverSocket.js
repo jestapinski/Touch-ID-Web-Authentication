@@ -8,8 +8,10 @@ exports.init = function(io) {
         // ++clients; 
         // socket.broadcast.emit('users_count', clients);
         // io.sockets.emit('users_count', clients);
-        
+
         // Below line triggered
+        
+
         io.sockets.emit('handShake', 'This is working');
         socket.broadcast.emit('handShake', 'Do broadcast instead');
         console.log(clients);
@@ -18,6 +20,7 @@ exports.init = function(io) {
             console.log('user lost connection');
         });
 
+        // note capitalization of both handshake functions!!
         socket.on('handShake', function(){
             console.log('Getting HandShake from iOS');
         });

@@ -17,8 +17,6 @@
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> Connect Page</h1>
     </div>
-
-   
     <div class="row" style="padding:10px;">
 
         <h2> Initializing... </h2>
@@ -26,13 +24,37 @@
         <p> To link iPhone, ensure the iOS application, Touchify, is up and running. </p>
 
     </div>
-
     <hr> 
-
 
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
+
+<script>
+    var socket = io();
+
+    socket.on('connect', function(){
+        socket.on('users_count', function(data){
+        $('#client_count').text("The current amount of users logged in is: " + data);
+        console.log("Connection");
+         });
+    });
+
+
+    socket.on('connect', function(){
+        socket.on('')
+        console.log('Receiving params from iOS')
+        // in this function, once I receive params from iOS (iPhone id, or some token for association)
+        // update the user model. post call? some function / action to do so 
+        // once action is completed, begin socket.on('connect_2') to inform iOS application connection is complete.
+        // also update connection page that a connection has been made to an iPhone device 
+    })
+
+    socket.on('connect_2', function {
+        io.sockets.emit("")
+    }
+
+</script>
 
 </body>
 </html>

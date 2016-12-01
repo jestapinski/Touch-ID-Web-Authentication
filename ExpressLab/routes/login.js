@@ -67,7 +67,7 @@ exports.init = function(app, passport) {
     // =====================================
 
     app.get('/connect', function(req,res) {
-        res.render('connect.ejs', {message: req.flash('test')});
+        res.render('connect.ejs');
     });
 
     // =====================================
