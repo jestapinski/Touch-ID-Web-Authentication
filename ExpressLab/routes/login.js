@@ -33,7 +33,6 @@ exports.init = function(app, passport) {
     // =====================================
     // show the signup form
     app.get('/signup', function(req, res) {
-
         // render the page and pass in any flash data if it exists
         res.render('signup.ejs', { message: req.flash('signupMessage') });
     });
@@ -62,6 +61,14 @@ exports.init = function(app, passport) {
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
+
+    // =====================================
+    // CONNECT SECTION =====================
+    // =====================================
+
+    app.get('/connect', function(req,res) {
+        res.render('connect.ejs', {message: req.flash('test')});
+    });
 
     // =====================================
     // LOGOUT ==============================

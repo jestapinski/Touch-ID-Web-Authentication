@@ -16,50 +16,56 @@
 
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
-    <div id="tester">
-    </div>
+   
+    <div class="row" style="padding:10px;">
 
-    <div class="row">
+        <h2> Welcome <%= user.local.email %>!</h2>
+        <br>
+
+        <p> Press the button below to set up the connection with your iPhone device.</p>
+        <a href="/connect" class="btn btn-default btn-sm">Link iPhone</a>
+
 
         <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
+
+        <!-- <div class="col-sm-6">
             <div class="well">
                 <h3><span class="fa fa-user"></span> Local</h3>
-
                     <p>
                         <strong>id</strong>: <%= user._id %><br>
                         <strong>email</strong>: <%= user.local.email %><br>
                         <strong>password</strong>: <%= user.local.password %>
                     </p>
-
             </div>
-        </div>
+        </div> -->
 
-        <div class="col-sm-6">
+
+        <!-- <div class="col-sm-6">
             <h2 id="client_count"></h2>
-        </div>
-
+        </div> -->
 
     </div>
+
+    <hr> 
+
+    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
 
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
-    // var socket = io.connect('http://localhost:8080');
-    var socket = io();
-    socket.on('connect', function(){
-        socket.on('users_count', function(data){
 
-    $('#client_count').text("The current amount of users logged in is: " + data);
+    // var socket = io();
 
-    console.log("Connection");
-  });
-});
+    // socket.on('connect', function(){
+    //     socket.on('users_count', function(data){
+    //     $('#client_count').text("The current amount of users logged in is: " + data);
+    //     console.log("Connection");
+    //      });
+    // });
 
 </script>
 
