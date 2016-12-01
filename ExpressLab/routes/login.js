@@ -1,4 +1,4 @@
-// app/routes.js
+//routes.js
 exports.init = function(app, passport) {
 
     // =====================================

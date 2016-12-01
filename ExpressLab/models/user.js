@@ -1,4 +1,4 @@
-// app/models/user.js
+//models/user.js
 // load the things we need
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
@@ -19,7 +19,7 @@ userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
-userSchema.methods.generateHash = function(apple_mac) {
+userSchema.methods.generateHashForAppleMac = function(apple_mac) {
     return bcrypt.hashSync(apple_mac, bcrypt.genSaltSync(8), null);
 };
 
@@ -28,7 +28,7 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
-userSchema.methods.validPassword = function(apple_mac) {
+userSchema.methods.validPasswordForAppleMac = function(apple_mac) {
     return bcrypt.compareSync(apple_mac, this.local.apple_mac);
 };
 
