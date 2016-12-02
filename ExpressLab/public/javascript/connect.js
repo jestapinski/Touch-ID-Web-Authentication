@@ -1,7 +1,7 @@
 var socket = io();
 var user = require('../models/user');
 
-socket.on('int_connect', function(paramaters){
+socket.on('init_connect', function(paramaters){
 
     console.log('connect.js javascript file... nothing should print unless iOS app running and matching socked added')
 
@@ -16,10 +16,10 @@ socket.on('int_connect', function(paramaters){
     // also update connection page that a connection has been made to an iPhone device 
 })
 
-socket.on('connect_2', function {
-    io.sockets.emit("")
+socket.emit('init_connect', user) {
+    console.log('hit');
 }
 
-function() {
-
+socket.on('connect_2', function {
+    io.sockets.emit("")
 }
