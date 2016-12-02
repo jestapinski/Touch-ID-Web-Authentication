@@ -1,10 +1,12 @@
-<!-- views/profile.ejs -->
+<!-- views/connect.ejs -->
 <!doctype html>
 <html>
 <head>
     <title>Node Authentication</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script src="/javascript/connect.js"></script>
+
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
 
     <style>
@@ -29,32 +31,6 @@
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
-
-<script>
-    var socket = io();
-
-    socket.on('connect', function(){
-        socket.on('users_count', function(data){
-        $('#client_count').text("The current amount of users logged in is: " + data);
-        console.log("Connection");
-         });
-    });
-
-
-    socket.on('connect', function(){
-        socket.on('')
-        console.log('Receiving params from iOS')
-        // in this function, once I receive params from iOS (iPhone id, or some token for association)
-        // update the user model. post call? some function / action to do so 
-        // once action is completed, begin socket.on('connect_2') to inform iOS application connection is complete.
-        // also update connection page that a connection has been made to an iPhone device 
-    })
-
-    socket.on('connect_2', function {
-        io.sockets.emit("")
-    }
-
-</script>
 
 </body>
 </html>

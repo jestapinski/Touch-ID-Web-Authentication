@@ -5,13 +5,6 @@ exports.init = function(io) {
     io.on('connection', function(socket){
         console.log('a user connected');
 
-        // ++clients; 
-        // socket.broadcast.emit('users_count', clients);
-        // io.sockets.emit('users_count', clients);
-
-        // Below line triggered
-        
-
         io.sockets.emit('handShake', 'This is working');
         socket.broadcast.emit('handShake', 'Do broadcast instead');
         console.log(clients);
@@ -32,8 +25,6 @@ exports.init = function(io) {
 
         socket.on('disconnect', function(){
             console.log('user disconnected');
-            // --clients;
-            // console.log(clients);
         });
     });
 }

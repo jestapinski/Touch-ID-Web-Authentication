@@ -19,7 +19,7 @@ exports.init = function(app, passport) {
     });
 
 
-    app.get('/touchlogin/:useremail', function(req, res) {
+    app.get('/touchlogin/:useremail', isLoggedIn, function(req, res) {
 
         // render the page and pass in any flash data if it exists
         res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail}); 
@@ -66,8 +66,17 @@ exports.init = function(app, passport) {
     // CONNECT SECTION =====================
     // =====================================
 
-    app.get('/connect', function(req,res) {
+    app.get('/connect', isLoggedIn, function(req,res) {
         res.render('connect.ejs');
+
+        console.log(req);
+        console.log("request");
+
+        console.log("");
+        console.log("");
+
+        // console.log(res);
+        // console.log("response");
     });
 
     // =====================================

@@ -59,7 +59,6 @@ app.use(function(request, response) {
 //gets the socket logic
 require('./socketio/serverSocket.js').init(io);
 
-
 // launch ======================================================================
 http.listen(port, function(){
   console.log('listening on *:8080');
