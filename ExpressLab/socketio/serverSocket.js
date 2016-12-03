@@ -26,5 +26,9 @@ exports.init = function(io) {
         socket.on('disconnect', function(){
             console.log('user disconnected');
         });
+
+        socket.on('login', function(data){
+            console.log('Getting login attempt from iOS device', data);
+        });
     });
 }
