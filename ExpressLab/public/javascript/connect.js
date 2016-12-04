@@ -1,8 +1,6 @@
 var socket = io();
 var user = require('../models/user');
 
-
-
 io.on('connection', function(socket) {
 
 socket.on('init_connect', function(paramaters){
