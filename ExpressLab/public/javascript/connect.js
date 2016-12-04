@@ -1,6 +1,10 @@
 var socket = io();
 var user = require('../models/user');
 
+
+
+io.on('connection', function(socket) {
+
 socket.on('init_connect', function(paramaters){
 
     console.log('connect.js javascript file... nothing should print unless iOS app running and matching socked added')
@@ -22,4 +26,6 @@ socket.emit('init_connect', user) {
 
 socket.on('connect_2', function {
     io.sockets.emit("")
+});
+
 });
