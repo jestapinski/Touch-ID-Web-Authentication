@@ -69,11 +69,11 @@ exports.init = function(app, passport) {
     app.get('/connect', isLoggedIn, function(req,res) {
         res.render('connect.ejs');
 
-        console.log(req.user);
-        req.user.phone_id = "12345";
-        console.log(req.user);
-        req.user.save
-        console.log(req.user);
+        // console.log(req.user);
+        // req.user.phone_id = "12345";
+        // console.log(req.user);
+        // req.user.save
+        // console.log(req.user);
 
 
         // console.log(req.user);

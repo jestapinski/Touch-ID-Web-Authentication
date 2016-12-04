@@ -14,7 +14,7 @@ socket.on('init_connect', function(paramaters){
     // update the user model. post call? some function / action to do so 
     // once action is completed, begin socket.on('connect_2') to inform iOS application connection is complete.
     // also update connection page that a connection has been made to an iPhone device 
-})
+});
 
 socket.emit('init_connect', user) {
     console.log('hit');
@@ -22,4 +22,4 @@ socket.emit('init_connect', user) {
 
 socket.on('connect_2', function {
     io.sockets.emit("")
-}
+});
