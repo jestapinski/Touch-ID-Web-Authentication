@@ -96,14 +96,6 @@ exports.init = function(app, passport) {
         // req.user.save
         // console.log(req.user);
 
-
-        // console.log(req.user);
-
-        // console.log(req.user);
-        // console.log("request");
-
-        // console.log(res);
-        // console.log("response");
     });
 
     // =====================================
