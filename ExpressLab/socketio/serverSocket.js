@@ -89,9 +89,9 @@ exports.init = function(io) {
             console.log('Receiving params from iOS');
             //testing
             //console.log(user.local.email);
-
-            socket.emit('init_token', token);
-
+            User.byUser(parameter.username, function(err, rou) {
+                socket.emit('init_token', rou[0].local.phone_identifier);
+            });
         });
 
 
