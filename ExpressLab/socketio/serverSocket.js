@@ -81,18 +81,19 @@ exports.init = function(io) {
             console.log('Getting login attempt from iOS device', data);
         });
 
-        socket.on('init_connect', function(paramaters){
+        socket.on('init_connect', function(parameters){
 
             console.log('connect.js javascript file... nothing should print unless iOS app running and matching socked added')
             console.log('serverSocket');
-            console.log(paramaters);
+            //console.log(paramaters);
             console.log('Receiving params from iOS');
             //testing
             //console.log(user.local.email);
-            User.byUser(parameter.username, function(err, rou) {
+            User.byUser(parameters.username, function(err, rou) {
+            
                 socket.emit('init_token', rou[0].local.phone_identifier);
             });
-        });
+        });i
 
 
         socket.on('authClient', function (data) {
@@ -142,11 +143,18 @@ exports.init = function(io) {
         });
 
         
-        socket.on('startLogin', function(string) {
-            console.log(string)
+        socket.on('startLogin', function(data) {
+            console.log(data)
             console.log("StartLogin")
-            var random_number = rng();
-            socket.emit('loginRN', random_number);
+            User.byUser(data.username, function(err, rou) {
+                rou[0].lastSaltSentToken = rng();
+                rou[0].save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                socket.emit('loginRN', rou[0].lastSaltSentToken);
+            });
         });
         
         socket.on('loginHash', function(hash) {
