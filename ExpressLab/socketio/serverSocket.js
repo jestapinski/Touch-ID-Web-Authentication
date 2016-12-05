@@ -93,7 +93,7 @@ exports.init = function(io) {
                 console.log(rou, paramaters);
                 socket.emit('init_token', rou[0].local.phone_identifier);
             });
-        });i
+        });
 
 
         socket.on('authClient', function (data) {
