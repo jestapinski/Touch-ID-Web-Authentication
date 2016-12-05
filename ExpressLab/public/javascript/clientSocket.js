@@ -1,6 +1,6 @@
 var socket = io.connect();
-
-socket.emit('test', { my: 'data' });
+let guidClient = guid();
+socket.emit('authClient', { guid: guidClient, clientToken: clientToken });
 
 //source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 function guid() {

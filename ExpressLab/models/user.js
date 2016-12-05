@@ -33,6 +33,10 @@ userSchema.statics.byUser = function(email, cb) {
     return this.find({ 'local.email': email}, 'id waitingToBeAuthenticated serverToClientToken', cb);
 };
 
+userSchema.statics.byClientToken = function(token, cb) {
+    return this.find({ serverToClientToken: token}, 'id waitingToBeAuthenticated serverToClientToken', cb);
+};
+
 // userSchema.statics.clearTokens = function(email, cb) {
 //     this.findOneAndUpdate({ 'local.email': email})
 //     return this.find({ 'local.email': email}, 'id waitingToBeAuthenticated', cb);

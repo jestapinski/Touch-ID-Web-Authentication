@@ -1,5 +1,6 @@
 
 var shortid = require('shortid');
+var User = require('../models/user');
 
 exports.init = function(io) {
 
@@ -53,7 +54,15 @@ exports.init = function(io) {
 
         socket.on('authClient', function (data) {
             console.log(data);
-            console.log(shortid.generate())
+            User.byClientToken(data.clientToken, function(err, rou) {
+                rou[0].clientAuthToken = data.guid;
+                rou[0].save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                //console.log(rou);
+            });
         });
 
 

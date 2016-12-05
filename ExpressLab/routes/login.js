@@ -39,7 +39,7 @@ exports.init = function(app, passport) {
                     console.log(err);
                 }
                 });
-                res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail, uniqueClient: shortid.generate()}); 
+                res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail, uniqueClient: rou[0].serverToClientToken}); 
             }
         })
         // render the page and pass in any flash data if it exists
