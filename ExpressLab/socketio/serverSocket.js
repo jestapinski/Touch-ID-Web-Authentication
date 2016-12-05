@@ -162,7 +162,7 @@ exports.init = function(io) {
             console.log(hash)
             //get user
             User.byUser(hash.username, function(err, rou) {
-                decryption = decrypt(hash.hash, random_number);
+                decryption = decrypt(hash.hash, rou[0].lastSaltSentToken);
                 bool_value = evaluate(rou[0].local.phone_identifier, decryption);
                 if (bool_value === "True") {
                     io.sockets.connected[rou[0].socketID].emit("tryLogin", rou[0].touchIDSession);

@@ -32,7 +32,7 @@ userSchema.methods.validPassword = function(password) {
 
 
 userSchema.statics.byUser = function(email, cb) {
-    return this.find({ 'local.email': email}, 'id waitingToBeAuthenticated serverToClientToken touchIDSession clientAuthToken local.phone_identifier', cb);
+    return this.find({ 'local.email': email}, 'id lastSaltSentToken waitingToBeAuthenticated serverToClientToken touchIDSession clientAuthToken local.phone_identifier', cb);
 };
 
 userSchema.statics.byClientToken = function(token, cb) {
