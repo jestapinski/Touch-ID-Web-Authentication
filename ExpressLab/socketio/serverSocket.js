@@ -138,7 +138,7 @@ exports.init = function(io) {
                         console.log(err);
                     }
                 });
-                console.log(rou);
+                console.log('glkajsdhfljkasdhflkasjdhflkasjfhjas',rou);
             });
         });
 
