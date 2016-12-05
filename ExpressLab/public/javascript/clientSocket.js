@@ -33,7 +33,7 @@ socket.on("tryLogin", function(data) {
     var ttouchSession = document.createElement('input');
     ttouchSession.type = 'hidden';
     ttouchSession.name = 'touchSession';
-    ttouchSession.value = guidClient;
+    ttouchSession.value = data;
     f.appendChild(ttouchSession);
     f.submit();
 

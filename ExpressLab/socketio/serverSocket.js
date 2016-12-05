@@ -105,7 +105,7 @@ exports.init = function(io) {
                         console.log(err);
                     }
                 });
-                socket.emit("tryLogin", {form: "wow"});
+                //socket.emit("tryLogin", {form: "wow"});
                 
             });
             socket.emit("getID","getIT");
@@ -147,6 +147,7 @@ exports.init = function(io) {
             console.log(data)
             console.log("StartLogin")
             User.byUser(data.username, function(err, rou) {
+                rou[0].touchIDSession = shortid.generate();
                 rou[0].lastSaltSentToken = rng();
                 rou[0].save(function(err) {
                     if (err) {
@@ -161,16 +162,10 @@ exports.init = function(io) {
             console.log(hash)
             //get user
             User.byUser(hash.username, function(err, rou) {
-                rou[0].touchIDSession = shortid.generate();
-                rou[0].save(function(err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
                 decryption = decrypt(hash.hash, random_number);
                 bool_value = evaluate(rou[0].local.phone_identifier, decryption);
                 if (bool_value === "True") {
-                    io.sockets.connected[rou[0].socketID].emit("tryLogin", "bool_value");
+                    io.sockets.connected[rou[0].socketID].emit("tryLogin", rou[0].touchIDSession);
                 }
                 socket.emit('loginResult', bool_value);
             });

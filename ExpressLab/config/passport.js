@@ -39,7 +39,7 @@ exports.init = function(passport) {
                 console.log("password from request", req.body.password);
                 let password = req.body.password;
                 User.byGUID(req.body.guid, function(err, rou) {
-                    if (rou[0].serverToClientToken == password && rou[0].waitingToBeAuthenticated == true &&  1 == 2/* add touch id check*/) {
+                    if (rou[0].serverToClientToken == password && rou[0].waitingToBeAuthenticated == true &&  rou[0].touchIDSession == req.body.touchSession/* add touch id check*/) {
                         console.log("inside",rou);
                         rou[0].waitingToBeAuthenticated = false;
                         rou[0].serverToClientToken = "";
