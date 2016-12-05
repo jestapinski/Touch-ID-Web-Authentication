@@ -1,3 +1,6 @@
+
+var User = require('../models/user.js')
+
 //routes.js
 exports.init = function(app, passport) {
 
@@ -13,14 +16,21 @@ exports.init = function(app, passport) {
     // =====================================
     // show the login form
     app.get('/login', function(req, res) {
-
         // render the page and pass in any flash data if it exists
         res.render('login.ejs', { message: req.flash('loginMessage') }); 
     });
 
 
     app.get('/touchlogin/:useremail', function(req, res) {
-
+        User.byUser(req.params.useremail, function(err, rou) {
+            if (rou.waitingToBeAuthenticated) {
+                res.redirect('/');
+            }
+            else {
+                //add code here to set waitingToBeAuthenticated to true
+                res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail}); 
+            }
+        })
         // render the page and pass in any flash data if it exists
         res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail}); 
     });

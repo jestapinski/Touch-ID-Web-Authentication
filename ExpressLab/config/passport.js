@@ -42,6 +42,11 @@ exports.init = function(passport) {
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 
             // all is well, return successful user
+            user.waitingToBeAuthenticated = true
+            newUser.save(function(err) {
+                    if (err)
+                        throw err;
+            });
             return done(null, user);
         });
 
@@ -102,6 +107,7 @@ exports.init = function(passport) {
                 // set the user's local credentials
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password);
+                newUser.waitingToBeAuthenticated = false;
 
                 // save the user
                 newUser.save(function(err) {
