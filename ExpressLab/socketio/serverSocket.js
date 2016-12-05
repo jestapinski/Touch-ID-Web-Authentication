@@ -21,13 +21,25 @@ exports.init = function(io) {
     // random_number provided from server
     // hash provided from client on iOS application
     function decrypt(hash, random_number) {
+        console.log("in decrypt now");
+        var RNCryptor = require('jscryptor');
+        var password = "16";
+        var plaintext = 'taco';
+
+        //var encrypted = RNCryptor.Decrypt(hash, random_number);
+        console.log(hash)
         var decrypted = RNCryptor.Decrypt(hash, random_number);
-        console.log(decrypted)
+        console.log("Able to decrypt");
+        console.log(random_number)
+        return decrypted
+        //console.log(decrypted.toString());
     }
 
     function evaluate(token, decrypted) {
         var success_value = 'false';
-
+        console.log(token);
+        console.log("Decrypt below");
+        console.log(decrypted);
         if (token.toString() === decrypted.toString()) {
             success_value = 'True';
         }
@@ -57,7 +69,7 @@ exports.init = function(io) {
 
         io.sockets.emit('handShake', 'This is working');
         socket.broadcast.emit('handShake', 'Do broadcast instead');
-        console.log(clients);
+        //console.log(clients);
 
         socket.on('lost connection', function(){
             console.log('user lost connection');
@@ -88,7 +100,7 @@ exports.init = function(io) {
             console.log(paramaters);
             console.log('Receiving params from iOS');
             //testing
-            console.log(user.local.email);
+            //console.log(user.local.email);
 
             socket.emit('init_token', token);
 
@@ -123,11 +135,14 @@ exports.init = function(io) {
         // instead of passing taco, pass a variable which will be determined with a function call that will generate rn
 
         socket.on('startLogin', function(string) {
+            console.log(string)
+            console.log("StartLogin")
             socket.emit('loginRN', random_number);
         });
         
         socket.on('loginHash', function(hash) {
-            decryption = decrypt(hash, random_number);
+            console.log(hash)
+            decryption = decrypt(hash.hash, random_number);
             bool_value = evaluate(token, decryption);
             socket.emit('loginResult', bool_value);
         });
