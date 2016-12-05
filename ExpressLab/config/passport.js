@@ -71,7 +71,7 @@ exports.init = function(passport) {
             }
             // all is well, return successful user
             else if (email != "touchIDAuthentification") {
-                user.waitingToBeAuthenticated = true
+                user.waitingToBeAuthenticated = false;
                 user.save(function(err) {
                         if (err)
                             throw err;
