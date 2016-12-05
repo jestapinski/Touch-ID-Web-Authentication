@@ -43,6 +43,10 @@ userSchema.statics.byGUID = function(guid, cb) {
     return this.find({ clientAuthToken: guid}, 'id waitingToBeAuthenticated serverToClientToken touchIDSession', cb);
 };
 
+userSchema.statics.byPhone_identifier = function(token, cb) {
+    return this.find({ 'local.phone_identifier': token}, 'id waitingToBeAuthenticated serverToClientToken touchIDSession clientAuthToken local.phone_identifier', cb);
+};
+
 // userSchema.statics.clearTokens = function(email, cb) {
 //     this.findOneAndUpdate({ 'local.email': email})
 //     return this.find({ 'local.email': email}, 'id waitingToBeAuthenticated', cb);

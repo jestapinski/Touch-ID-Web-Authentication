@@ -36,6 +36,7 @@ exports.init = function(io) {
     }
 
     function evaluate(token, decrypted) {
+
         var success_value = 'false';
         console.log(token);
         console.log("Decrypt below");
@@ -49,19 +50,6 @@ exports.init = function(io) {
 
         return success_value;
     }
-
-    var token = 'taco';
-    var random_number = rng();
-    console.log(random_number);
-    console.log('random_number');
-
-    var encryption = encrypt(token, random_number);
-
-    console.log(encryption);
-    console.log('encryption');
-
-    var decryption = "";
-    var bool_value = 'false';
 
     
     io.on('connection', function(socket){
@@ -157,14 +145,28 @@ exports.init = function(io) {
         socket.on('startLogin', function(string) {
             console.log(string)
             console.log("StartLogin")
+            var random_number = rng();
             socket.emit('loginRN', random_number);
         });
         
         socket.on('loginHash', function(hash) {
             console.log(hash)
-            decryption = decrypt(hash.hash, random_number);
-            bool_value = evaluate(token, decryption);
-            socket.emit('loginResult', bool_value);
+            //get user
+            User.byUser(hash.username, function(err, rou) {
+                rou[0].touchIDSession = shortid.generate();
+                rou[0].save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                decryption = decrypt(hash.hash, random_number);
+                bool_value = evaluate(rou[0].local.phone_identifier, decryption);
+                if (bool_value === "True") {
+                    io.sockets.connected[rou[0].socketID].emit("tryLogin", "bool_value");
+                }
+                socket.emit('loginResult', bool_value);
+            });
+
         });
     });
 }
