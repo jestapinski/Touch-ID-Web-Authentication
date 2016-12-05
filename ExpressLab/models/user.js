@@ -14,7 +14,8 @@ var userSchema = mongoose.Schema({
     waitingToBeAuthenticated: Boolean,
     clientAuthToken: String,
     serverToClientToken: String,
-    lastSaltSentToken: String
+    lastSaltSentToken: String,
+    touchIDSession: String
 });
 
 // methods ======================
