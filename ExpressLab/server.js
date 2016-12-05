@@ -16,6 +16,13 @@ var session      = require('express-session');
 
 var configDB = require('./config/database.js');
 
+var RNCryptor = require('jscryptor');
+var password = "16";
+var plaintext = 'taco';
+
+var encrypted = RNCryptor.Encrypt(plaintext, password);
+console.log(encrypted);
+
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
 
