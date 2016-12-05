@@ -12,7 +12,8 @@ var userSchema = mongoose.Schema({
         phone_identifier	: String
     },
     waitingToBeAuthenticated: Boolean,
-    machineAuthToken: String
+    clientAuthToken: String,
+    lastSaltSentToken: String
 });
 
 // methods ======================
