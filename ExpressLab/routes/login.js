@@ -19,7 +19,7 @@ exports.init = function(app, passport) {
     });
 
 
-    app.get('/touchlogin/:useremail', isLoggedIn, function(req, res) {
+    app.get('/touchlogin/:useremail', function(req, res) {
 
         // render the page and pass in any flash data if it exists
         res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail}); 
