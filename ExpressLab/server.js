@@ -9,19 +9,13 @@ var flash    = require('connect-flash');
 var fs = require("fs");
 var path = require("path");
 
+
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var configDB = require('./config/database.js');
-
-var RNCryptor = require('jscryptor');
-var password = "16";
-var plaintext = 'taco';
-
-var encrypted = RNCryptor.Encrypt(plaintext, password);
-console.log(encrypted);
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
@@ -42,7 +36,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
-//require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 //Load all the routes in the directory
 fs.readdirSync('./routes').forEach(function(file) {
 	if (path.extname(file) =='.js') {
