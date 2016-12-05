@@ -26,8 +26,8 @@ exports.init = function(app, passport) {
         User.byUser(req.params.useremail, function(err, rou) {
             console.log(rou[0]);
             if (rou[0].waitingToBeAuthenticated) {
-                // res.redirect('/');
-                res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail, uniqueClient: shortid.generate()}); 
+                res.redirect('/');
+                //res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail, uniqueClient: shortid.generate()}); 
             }
             else {
                 //add code here to set waitingToBeAuthenticated to true
