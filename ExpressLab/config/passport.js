@@ -5,6 +5,7 @@ var LocalStrategy   = require('passport-local').Strategy;
 
 // load up the user model
 var User            = require('../models/user');
+var shortid = require('shortid');
 
 // expose this function to our app using module.exports
 exports.init = function(passport) {
@@ -142,6 +143,7 @@ exports.init = function(passport) {
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password);
                 newUser.waitingToBeAuthenticated = false;
+                newUser.local.phone_identifier = shortid.generate();
 
                 // save the user
                 newUser.save(function(err) {
