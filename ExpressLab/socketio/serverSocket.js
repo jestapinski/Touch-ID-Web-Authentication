@@ -1,3 +1,6 @@
+
+var shortid = require('shortid');
+
 exports.init = function(io) {
 
     var clients = 0; 
@@ -45,5 +48,12 @@ exports.init = function(io) {
             // once action is completed, begin socket.on('connect_2') to inform iOS application connection is complete.
             // also update connection page that a connection has been made to an iPhone device 
         });
+
+        socket.on('authClient', function (data) {
+            console.log(data);
+            console.log(shortid.generate())
+        });
+
+
     });
 }

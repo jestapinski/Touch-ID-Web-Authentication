@@ -1,5 +1,6 @@
 
 var User = require('../models/user.js')
+var shortid = require('shortid');
 
 //routes.js
 exports.init = function(app, passport) {
@@ -23,16 +24,26 @@ exports.init = function(app, passport) {
 
     app.get('/touchlogin/:useremail', function(req, res) {
         User.byUser(req.params.useremail, function(err, rou) {
-            if (rou.waitingToBeAuthenticated) {
-                res.redirect('/');
+            console.log(rou[0]);
+            rou[0].waitingToBeAuthenticated = false;
+            if (rou[0].waitingToBeAuthenticated) {
+                // res.redirect('/');
+                res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail, uniqueClient: shortid.generate()}); 
             }
             else {
                 //add code here to set waitingToBeAuthenticated to true
-                res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail}); 
+                rou[0].waitingToBeAuthenticated = true;
+                rou[0].serverToClientToken = shortid.generate();
+                rou[0].save(function(err) {
+                if (err) {
+                    console.log(err);
+                }
+                });
+                res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail, uniqueClient: shortid.generate()}); 
             }
         })
         // render the page and pass in any flash data if it exists
-        res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail}); 
+        //res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail}); 
     });
 
     // process the login form

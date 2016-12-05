@@ -13,6 +13,7 @@ var userSchema = mongoose.Schema({
     },
     waitingToBeAuthenticated: Boolean,
     clientAuthToken: String,
+    serverToClientToken: String,
     lastSaltSentToken: String
 });
 
@@ -28,9 +29,14 @@ userSchema.methods.validPassword = function(password) {
 };
 
 
-routineSchema.statics.byUser = function(email, cb) {
-    return this.find({ 'local.email': emailuserId}, 'id waitingToBeAuthenticated', cb);
+userSchema.statics.byUser = function(email, cb) {
+    return this.find({ 'local.email': email}, 'id waitingToBeAuthenticated serverToClientToken', cb);
 };
+
+// userSchema.statics.clearTokens = function(email, cb) {
+//     this.findOneAndUpdate({ 'local.email': email})
+//     return this.find({ 'local.email': email}, 'id waitingToBeAuthenticated', cb);
+// };
 
 
 // create the model for users and expose it to our app
