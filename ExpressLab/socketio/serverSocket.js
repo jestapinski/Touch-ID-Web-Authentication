@@ -124,14 +124,12 @@ exports.init = function(io) {
 
         socket.on('startLogin', function(string) {
             socket.emit('loginRN', random_number);
-        }
+        });
         
         socket.on('loginHash', function(hash) {
             decryption = decrypt(hash, random_number);
             bool_value = evaluate(token, decryption);
-            socket.emit('loginResult', bool_value) {
-        }
-
+            socket.emit('loginResult', bool_value);
         });
     });
 }
