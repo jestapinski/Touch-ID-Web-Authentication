@@ -2,6 +2,8 @@ exports.init = function(io) {
 
     var clients = 0; 
 
+    // generating a key 
+  
     io.on('connection', function(socket){
         console.log('a user connected');
 
@@ -37,13 +39,17 @@ exports.init = function(io) {
             console.log('serverSocket');
             console.log(paramaters);
             console.log('Receiving params from iOS');
-
             //testing
             console.log(user.local.email);
             // in this function, once I receive params from iOS (iPhone id, or some token for association)
             // update the user model. post call? some function / action to do so 
             // once action is completed, begin socket.on('connect_2') to inform iOS application connection is complete.
             // also update connection page that a connection has been made to an iPhone device 
+        });
+
+        socket.emit('server_response_init_connect', function(key) {
+            console.log("successfully sent key to Jordan");
+
         });
     });
 }
