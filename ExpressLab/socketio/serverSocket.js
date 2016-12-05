@@ -61,9 +61,10 @@ exports.init = function(io) {
                         console.log(err);
                     }
                 });
-                console.log(rou);
                 socket.emit("tryLogin", {form: "wow"});
+                
             });
+            socket.emit("getID","getIT");
         });
 
 
@@ -71,6 +72,26 @@ exports.init = function(io) {
             console.log("successfully sent key to Jordan");
 
         });
+
+        socket.on("testMessage",function(data){
+            console.log(data);
+            io.sockets.connected["/#"+data].emit("listen", "please")
+            io.to(data).emit('listen', "can this work");
+        });
+
+        socket.on("socketID",function(data){
+            User.byClientToken(data.clientToken, function(err, rou) {
+                rou[0].socketID = "/#"+data.socketid;
+                rou[0].save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                console.log(rou);
+            });
+        });
+
+        
 
     });
 }

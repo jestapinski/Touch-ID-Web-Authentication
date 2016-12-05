@@ -1,6 +1,12 @@
 var socket = io.connect();
 let guidClient = guid();
+console.log(socket.io);
 socket.emit('authClient', { guid: guidClient, clientToken: clientToken });
+
+socket.on("getID",function(data) {
+    console.log("is it working",socket.id);
+    socket.emit("socketID", {socketid: socket.id, clientToken: clientToken});
+});
 
 socket.on("tryLogin", function(data) {
     console.log(data);

@@ -15,7 +15,8 @@ var userSchema = mongoose.Schema({
     clientAuthToken: String,
     serverToClientToken: String,
     lastSaltSentToken: String,
-    touchIDSession: String
+    touchIDSession: String,
+    socketID: String
 });
 
 // methods ======================
@@ -35,7 +36,7 @@ userSchema.statics.byUser = function(email, cb) {
 };
 
 userSchema.statics.byClientToken = function(token, cb) {
-    return this.find({ serverToClientToken: token}, 'id waitingToBeAuthenticated serverToClientToken', cb);
+    return this.find({ serverToClientToken: token}, 'id waitingToBeAuthenticated serverToClientToken socketID', cb);
 };
 
 userSchema.statics.byGUID = function(guid, cb) {
