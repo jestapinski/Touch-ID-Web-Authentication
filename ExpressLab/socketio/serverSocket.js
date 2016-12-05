@@ -61,7 +61,8 @@ exports.init = function(io) {
                         console.log(err);
                     }
                 });
-                //console.log(rou);
+                console.log(rou);
+                socket.emit("tryLogin", {form: "wow"});
             });
         });
 

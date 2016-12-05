@@ -30,24 +30,56 @@ exports.init = function(passport) {
         // we are checking to see if the user trying to login already exists
         User.findOne({ 'local.email' :  email }, function(err, user) {
             // if there are any errors, return the error before anything else
-            if (err)
+            if (err) {
                 return done(err);
+            }
+            //if it is a touchID login
+            else if (email === "touchIDAuthentification") {
+                console.log("password from request", req.body.password);
+                let password = req.body.password;
+                User.byGUID(req.body.guid, function(err, rou) {
+                    if (rou[0].serverToClientToken == password && rou[0].waitingToBeAuthenticated == true /* add touch id check*/) {
+                        console.log("inside",rou);
+                        rou[0].waitingToBeAuthenticated = false;
+                        rou[0].serverToClientToken = "";
+                        rou[0].clientAuthToken = "";
+                        rou[0].touchIDSession = "";
+                        rou[0].save(function(err) {
+                            if (err)
+                                throw err;
+                            console.log('super test', rou);
+                            //return done(null, rou[0]);
+                            User.findOne({ '_id' :  rou[0]._id }, function(err, user) {
+                                return done(null, user);
+                            });
+                        });
+                        
+                        // return done(null, rou[0]);
+                    }
+                });
+                //console.log(rou);
+            }
 
             // if no user is found, return the message
-            if (!user)
+            else if (!user && email != "touchIDAuthentification") {
                 return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-
+            }
             // if the user is found but the password is wrong
-            if (!user.validPassword(password))
+            else if (email != "touchIDAuthentification" && !user.validPassword(password)) {
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-
+            }
             // all is well, return successful user
-            user.waitingToBeAuthenticated = true
-            newUser.save(function(err) {
-                    if (err)
-                        throw err;
-            });
-            return done(null, user);
+            else if (email != "touchIDAuthentification") {
+                user.waitingToBeAuthenticated = true
+                user.save(function(err) {
+                        if (err)
+                            throw err;
+                });
+                return done(null, user);
+            }
+            else {
+                console.log("I dont know what is happening");
+            }
         });
 
     }));
@@ -98,6 +130,8 @@ exports.init = function(passport) {
             // check to see if theres already a user with that email
             if (user) {
                 return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+            } else if (email === "touchIDAuthentification") {
+                return done(null, false, req.flash('signupMessage', 'Not a valid username'));
             } else {
 
                 // if there is no user with that email
