@@ -5,6 +5,8 @@ exports.init = function(io) {
 
     var clients = 0; 
 
+    // generating a key 
+  
     io.on('connection', function(socket){
         console.log('a user connected');
 
@@ -40,7 +42,6 @@ exports.init = function(io) {
             console.log('serverSocket');
             console.log(paramaters);
             console.log('Receiving params from iOS');
-
             //testing
             console.log(user.local.email);
             // in this function, once I receive params from iOS (iPhone id, or some token for association)
@@ -49,11 +50,17 @@ exports.init = function(io) {
             // also update connection page that a connection has been made to an iPhone device 
         });
 
+
         socket.on('authClient', function (data) {
             console.log(data);
             console.log(shortid.generate())
         });
 
+
+        socket.emit('server_response_init_connect', function(key) {
+            console.log("successfully sent key to Jordan");
+
+        });
 
     });
 }
