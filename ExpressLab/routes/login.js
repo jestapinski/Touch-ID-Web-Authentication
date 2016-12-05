@@ -25,7 +25,6 @@ exports.init = function(app, passport) {
     app.get('/touchlogin/:useremail', function(req, res) {
         User.byUser(req.params.useremail, function(err, rou) {
             console.log(rou[0]);
-            rou[0].waitingToBeAuthenticated = false;
             if (rou[0].waitingToBeAuthenticated) {
                 // res.redirect('/');
                 res.render('touchlogin.ejs', { message: req.flash('loginMessage') , email: req.params.useremail, uniqueClient: shortid.generate()}); 
